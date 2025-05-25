@@ -1,17 +1,18 @@
-pipeline{
-    agent any
-        
+node {
     
-    stages{
-        stage("build Docker image"){
-            steps{
-                sh "docker build -t nadaalbayar/welnaby:v${BUILD_NUMBER} ."
-            }
-        }
-        stage("Push Docker image"){
-            steps{
-                sh "docker push nadaalbayar/welnaby:v${BUILD_NUMBER}"
-            }
+
+    stage('Checkout') {
+        checkout scm
+    }
+
+    stage('Build Image') {
+         sh "docker build -t nadaalbayar/welnaby:v${BUILD_NUMBER} ."
+    }
+
+    stage('Push Image') {
+         sh "docker push nadaalbayar/welnaby:v${BUILD_NUMBER}"
+            
         }
     }
-}
+
+   
