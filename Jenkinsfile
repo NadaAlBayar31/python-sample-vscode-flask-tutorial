@@ -1,19 +1,16 @@
 pipeline{
-    agent{
-        label "java"
-    }
-    environment{
-        XYZ='ITI ITI ITI'
-    }
+    agent any
+        
+    
     stages{
         stage("build Docker image"){
             steps{
-                sh "docker build -t itiv4/data-iti:v${BUILD_NUMBER} ."
+                sh "docker build -t nadaalbayar/data-iti:v${BUILD_NUMBER} ."
             }
         }
         stage("Push Docker image"){
             steps{
-                sh "docker push itiv4/data-iti:v${BUILD_NUMBER}"
+                sh "docker push nadaalbayar/data-iti:v${BUILD_NUMBER}"
             }
         }
     }
