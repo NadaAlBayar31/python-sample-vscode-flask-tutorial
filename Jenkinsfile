@@ -5,12 +5,12 @@ pipeline{
     stages{
         stage("build Docker image"){
             steps{
-                sh "docker build -t nadaalbayar/data-iti:v${BUILD_NUMBER} ."
+                sh "docker build -t nadaalbayar/welnaby:v${BUILD_NUMBER} ."
             }
         }
         stage("Push Docker image"){
             steps{
-                sh "docker push nadaalbayar/data-iti:v${BUILD_NUMBER}"
+                sh "docker push nadaalbayar/welnaby:v${BUILD_NUMBER}"
             }
         }
     }
