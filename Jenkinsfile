@@ -1,18 +1,34 @@
-node {
-    
+@Library('jenkins-shared-library') _
 
-    stage('Checkout') {
-        checkout scm
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'ayaahmed123/jenkins-sample'
     }
 
-    stage('Build Image') {
-         sh "docker build -t nadaalbayar/welnaby:v${BUILD_NUMBER} ."
-    }
+    stages {
+        stage('Build Python App') {
+            steps {
+                buildPythonApp()
+            }
+        }
 
-    stage('Push Image') {
-         sh "docker push nadaalbayar/welnaby:v${BUILD_NUMBER}"
-            
+        stage('Build Docker Image') {
+            steps {
+                buildDockerImage(env.IMAGE_NAME)
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub-cred', variable: 'DOCKER_PASSWORD')]) {
+                    pushDockerImage(env.IMAGE_NAME)
+                }
+            }
         }
     }
+}
+
 
    
