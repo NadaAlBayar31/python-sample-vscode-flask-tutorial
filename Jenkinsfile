@@ -22,7 +22,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-cred', variable: 'DOCKER_PASSWORD')]) {
+                withCredentials([string(credentialsId: 'docker-hub-access', variable: 'DOCKER_PASSWORD')]) {
                     pushDockerImage(env.IMAGE_NAME)
                 }
             }
